@@ -2,8 +2,8 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div><div className="container py-16">
-    <div className="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
+    <div><div className="min-h-screen flex items-center justify-center bg-white">
+    <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl uppercase font-medium mb-1">Login</h2>
       <p className="text-gray-600 mb-6 text-sm">
         Login if you are returning customer
@@ -14,7 +14,7 @@ const page = () => {
             <label className="text-gray-600 mb-2 block">Email Address</label>
             <input
               type="email"
-              className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0"
+              className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 input-box"
               placeholder="Enter Your Email"
             />
           </div>
@@ -22,7 +22,7 @@ const page = () => {
             <label className="text-gray-600 mb-2 block">Password</label>
             <input
               type="password"
-              className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0"
+              className="block w-full border input-box border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0"
               placeholder="Enter Your Password"
             />
           </div>
@@ -59,15 +59,10 @@ const page = () => {
         <div className="absolute left-0 top-3 w-full border-b-2 border-gray-200" />
       </div>
       <div className="flex mt-4 gap-3">
+       
         <a
           href="#"
-          className="w-1/2 py-2 text-center text-white bg-blue-800 rounded uppercase font-roboto font-medium text-sm hover:bg-blue-700"
-        >
-          Facebook
-        </a>
-        <a
-          href="#"
-          className="w-1/2 py-2 text-center text-white bg-yellow-600 rounded uppercase font-roboto font-medium text-sm  hover:bg-yellow-500"
+          className="w-full py-2 text-center text-white bg-yellow-600 rounded uppercase font-roboto font-medium text-sm  hover:bg-yellow-500"
         >
           Google
         </a>

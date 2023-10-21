@@ -94,7 +94,7 @@ export default function Navbar() {
         crossOrigin="anonymous"
         referrerPolicy="no-referrer"
       />
-      <nav className="bg-pink-200 fixed w-full z-20 top-0 left-0">
+      <nav className="bg-pink-200 fixed w-full z-20 top-0 left-0 border-b border-gray-100 ">
       
         <div className="max-w-screen-xl flex space-x-6  items-center justify-between mx-auto p-4">
           <div

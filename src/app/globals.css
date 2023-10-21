@@ -2,3 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components{
+    .size-selector input:checked + label{
+        @apply bg-orange-400 text-white;
+    }
+    .color-selector input:checked + label{
+        @apply ring-2 ring-orange-400;
+    }
+    .input-box{
+        @apply w-full border rounded-md p-2 focus:outline-none focus:border-blue-500;
+    }
+}
+
