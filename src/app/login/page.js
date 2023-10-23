@@ -45,7 +45,7 @@ const page = () => {
         <div className="mt-4">
           <button
             type="submit"
-            className="block w-full py-2 text-center bg-orange-400 border border-orange-400 rounded hover:bg-transparent hover:text-orange-400 transition uppercase font-roboto fpnt-medium"
+            className="block w-full py-2 text-center bg-pink-100 border border-red-700 rounded hover:bg-pink-200 hover:text-pink-400 transition items-center justify-between uppercase font-roboto font-medium"
           >
             Login
           </button>
@@ -69,7 +69,7 @@ const page = () => {
       </div>
       <p className="mt-4 text-gray-600 text-center">
         Don't have an account?{" "}
-        <a href="Register.html" className="text-orange-400">
+        <a href="/register" className="text-orange-400">
           Register Now
         </a>
       </p>
