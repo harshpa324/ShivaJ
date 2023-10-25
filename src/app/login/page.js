@@ -66,6 +66,11 @@ const page = () => {
     checkAuthentication();
   }, [user]);
 
+  useEffect(() => {
+    if (user) router.push("/");
+  }, [user]);
+  
+
 
   return (
     <div><div className="min-h-screen flex items-center justify-center bg-white">

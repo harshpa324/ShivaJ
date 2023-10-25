@@ -123,7 +123,7 @@ export default function Navbar() {
             <img src="images/logo.jpg" className="w-32" alt="SHIVA JWELLERS" />
           </div>
           <NavItems router={router} isAdminView={isAdminView} />
-          {loading? null :user ? (
+          {loading? null :user && !isAdminView ? (
             <Fragment>
               <div className="flex items-center justify-between space-x-4">
                 <a
