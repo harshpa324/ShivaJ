@@ -9,11 +9,11 @@ import { GlobalContext } from "@/context";
 import { addNewProduct, updateAProduct } from "@/services/product";
 import {
   AvailableSizes,
-  adminAddProductformControls,
-  firebaseConfig,
-  firebaseStroageURL,
+  adminAddProductformControls
 } from "@/utils";
-import { auth, app } from "@/app/firebase";
+import { initializeApp } from "firebase/app";
+import { firebaseConfig, firebaseStroageURL } from "@/app/firebase";
+
 import {
   getDownloadURL,
   getStorage,
@@ -25,7 +25,7 @@ import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { resolve } from "styled-jsx/css";
 
-
+const app = initializeApp(firebaseConfig);
 const storage = getStorage(app, firebaseStroageURL);
 
 const createUniqueFileName = (getFile) => {
@@ -37,7 +37,7 @@ const createUniqueFileName = (getFile) => {
 
 async function helperForUPloadingImageToFirebase(file) {
   const getFileName = createUniqueFileName(file);
-  const storageReference = ref(storage, `ecommerce/${getFileName}`);
+  const storageReference = ref(storage, `shivajproducts/${getFileName}`);
   const uploadImage = uploadBytesResumable(storageReference, file);
 
   return new Promise((resolve, reject) => {
@@ -118,14 +118,11 @@ export default function AdminAddNewProduct() {
 
   async function handleAddProduct() {
     setComponentLevelLoader({ loading: true, id: "" });
-    const res =
-      currentUpdatedProduct !== null
-        ? await updateAProduct(formData)
-        : await addNewProduct(formData);
+    const res = await addNewProduct(formData);
 
     console.log(res);
 
-    if (res.success) {
+    /*if (res.success) {
       setComponentLevelLoader({ loading: false, id: "" });
       toast.success(res.message, {
         position: toast.POSITION.TOP_RIGHT,
@@ -142,7 +139,7 @@ export default function AdminAddNewProduct() {
       });
       setComponentLevelLoader({ loading: false, id: "" });
       setFormData(initialFormData);
-    }
+    }*/
   }
 
   console.log(formData);
