@@ -89,7 +89,7 @@ export default function AdminAddNewProduct() {
 
   async function handleImage(event) {
     const extractImageUrl = await helperForUPloadingImageToFirebase(
-      event.target.files[0]
+      event.target.files[0],
     );
 
     if (extractImageUrl !== "") {
@@ -99,7 +99,6 @@ export default function AdminAddNewProduct() {
       });
     }
   }
-
   function handleTileClick(getCurrentItem) {
     let cpySizes = [...formData.sizes];
     const index = cpySizes.findIndex((item) => item.id === getCurrentItem.id);
@@ -118,11 +117,14 @@ export default function AdminAddNewProduct() {
 
   async function handleAddProduct() {
     setComponentLevelLoader({ loading: true, id: "" });
-    const res = await addNewProduct(formData);
+    const res =
+    currentUpdatedProduct !== null
+      ? await updateAProduct(formData)
+      : await addNewProduct(formData);
 
     console.log(res);
 
-    /*if (res.success) {
+    if (res.success) {
       setComponentLevelLoader({ loading: false, id: "" });
       toast.success(res.message, {
         position: toast.POSITION.TOP_RIGHT,
@@ -139,7 +141,7 @@ export default function AdminAddNewProduct() {
       });
       setComponentLevelLoader({ loading: false, id: "" });
       setFormData(initialFormData);
-    }*/
+    }
   }
 
   console.log(formData);

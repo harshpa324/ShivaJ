@@ -4,6 +4,7 @@ import Product from "@/models/product";
 import Joi from "joi";
 import { NextResponse } from "next/server";
 
+
 const AddNewProductSchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string().required(),
@@ -23,9 +24,7 @@ export async function POST(req) {
     await connectToDB();
 
     const isAuthUser = await AuthUser(req)
-
-    console.log(isAuthUser , 'sangam');
-
+    
     if (true) {
       const extractData = await req.json();
 
