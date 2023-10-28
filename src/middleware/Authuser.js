@@ -5,6 +5,8 @@ export const dynamic = "force-dynamic";
 const AuthUser = async (req) => {
   const token = req.headers.get("Authorization")?.split(" ")[1];
 
+  console.log(token);
+
   if (!token) return false;
 
   try {

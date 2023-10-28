@@ -5,6 +5,7 @@ import Joi from "joi";
 import { NextResponse } from "next/server";
 
 
+
 const AddNewProductSchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string().required(),
@@ -25,7 +26,17 @@ export async function POST(req) {
 
     const isAuthUser = await AuthUser(req)
     
-    if (true) {
+    useEffect(() => {
+      const checkAuthentication = async () => {
+        await new Promise((resolve) => setTimeout(resolve, 450));
+        setLoading(false);
+      };
+      checkAuthentication();
+    }, [user]);
+
+    console.log(isAuthUser);
+    
+    if ( TRUE) {
       const extractData = await req.json();
 
       const {
