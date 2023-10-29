@@ -38,13 +38,14 @@ const page = () => {
                     displayName: values.name,
                 });
 
-            router.push("/")    
+              
             })
             .catch((err) => {
                 console.error(err);
                 setSubmitButtonDisabled(false);
                 setErrorMsg(err.message);
             });
+            router.back();
     };
 
     
@@ -53,6 +54,7 @@ const page = () => {
     const handleSignIn = async () => {
         try {
             await googleSignIn();
+            router.back();
         } catch (error) {
             console.log(error);
         }

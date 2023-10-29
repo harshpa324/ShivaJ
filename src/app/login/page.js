@@ -7,10 +7,16 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { usePathname } from 'next/navigation';
+
+
+
 
 
 const page = () => {
   const router = useRouter();
+  
+  
 
   const [values, setValues] = useState({
     email: "",
@@ -31,20 +37,26 @@ const page = () => {
       .then(async (res) => {
         setSubmitButtonDisabled(false);
 
-        router.push("/");
+        
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);
         setErrorMsg(err.message);
       });
+
+      router.back();
   };
 
   const { user, googleSignIn, logOut } = UserAuth();
   const [loading, setLoading] = useState(true);
 
   const handleSignIn = async () => {
+
+    
+   
     try {
       await googleSignIn();
+      router.back();
     } catch (error) {
       console.log(error);
     }
@@ -139,8 +151,8 @@ const page = () => {
         </div>
         <div className="flex mt-4 gap-3">
 
-          <Link
-            href="/" onClick={handleSignIn}
+          <Link href=""
+             onClick={handleSignIn} 
             className="w-full py-2 text-center text-white bg-yellow-600 rounded uppercase font-roboto font-medium text-sm  hover:bg-yellow-500"
           >
             Google

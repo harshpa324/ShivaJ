@@ -11,12 +11,14 @@ export default function InputComponent({
           {label}
         </p>
         <input
-          placeholder={placeholder}
+                
+                className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 input-box"
+                placeholder={placeholder}
           type={type || "text"}
           value={value}
           onChange={onChange}
-          className="border placeholder-gray-400 focus:outline-none focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mr-0 mt-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
-        />
+                />
       </div>
     );
   }
+  
