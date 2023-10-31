@@ -61,23 +61,7 @@ export const navOptions = [
       label: "Password",
       componentType: "input",
     },
-    {
-      id: "role",
-      type: "",
-      placeholder: "",
-      label: "Role",
-      componentType: "select",
-      options: [
-        {
-          id: "admin",
-          label: "Admin",
-        },
-        {
-          id: "customer",
-          label: "customer",
-        },
-      ],
-    },
+    
   ];
   
   export const loginFormControls = [

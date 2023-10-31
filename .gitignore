@@ -37,4 +37,7 @@ next-env.d.ts
 
 src/database/index.js
 src/app/firebase.js
+src/app/login/page2.js
+src/app/register/page2.js
+src/componets/navbar/index2.js
 

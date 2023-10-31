@@ -1,121 +1,105 @@
-"use client"
+"use client";
 
-import React from 'react';
-import { auth } from '../firebase';
-import { UserAuth } from '@/context/Authcontext';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { usePathname } from 'next/navigation';
+import InputComponent from "@/components/FormElements/InputComponent";
+import ComponentLevelLoader from "@/components/Loader/componentlevel";
+import Notification from "@/components/Notification";
+import { GlobalContext } from "@/context";
+import { login } from "@/services/login";
+import { loginFormControls } from "@/utils";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import Link from "next/link";
 
+const initialFormdata = {
+  email: "",
+  password: "",
+};
 
+export default function Login() {
+  const [formData, setFormData] = useState(initialFormdata);
+  const {
+    isAuthUser,
+    setIsAuthUser,
+    user,
+    setUser,
+    componentLevelLoader,
+    setComponentLevelLoader,
+  } = useContext(GlobalContext);
 
-
-
-const page = () => {
   const router = useRouter();
-  
-  
 
-  const [values, setValues] = useState({
-    email: "",
-    pass: "",
-  });
-  const [errorMsg, setErrorMsg] = useState("");
-  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+  console.log(formData);
 
-  const handleSubmission = () => {
-    if (!values.email || !values.pass) {
-      setErrorMsg("Fill all fields");
-      return;
-    }
-    setErrorMsg("");
+  function isValidForm() {
+    return formData &&
+      formData.email &&
+      formData.email.trim() !== "" &&
+      formData.password &&
+      formData.password.trim() !== ""
+      ? true
+      : false;
+  }
 
-    setSubmitButtonDisabled(true);
-    signInWithEmailAndPassword(auth, values.email, values.pass)
-      .then(async (res) => {
-        setSubmitButtonDisabled(false);
+  async function handleLogin() {
+    setComponentLevelLoader({ loading: true, id: "" });
+    const res = await login(formData);
 
-        
-      })
-      .catch((err) => {
-        setSubmitButtonDisabled(false);
-        setErrorMsg(err.message);
+    console.log(res);
+
+    if (res.success) {
+      toast.success(res.message, {
+        position: toast.POSITION.TOP_RIGHT,
       });
-
-      router.back();
-  };
-
-  const { user, googleSignIn, logOut } = UserAuth();
-  const [loading, setLoading] = useState(true);
-
-  const handleSignIn = async () => {
-
-    
-   
-    try {
-      await googleSignIn();
-      router.back();
-    } catch (error) {
-      console.log(error);
+      setIsAuthUser(true);
+      setUser(res?.finalData?.user);
+      setFormData(initialFormdata);
+      Cookies.set("token", res?.finalData?.token);
+      localStorage.setItem("user", JSON.stringify(res?.finalData?.user));
+      setComponentLevelLoader({ loading: false, id: "" });
+    } else {
+      toast.error(res.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setIsAuthUser(false);
+      setComponentLevelLoader({ loading: false, id: "" });
     }
-  };
+    router.back();
+  }
 
-  const handleSignOut = async () => {
-    try {
-      await logOut();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  console.log(isAuthUser, user);
 
   useEffect(() => {
-    const checkAuthentication = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 50));
-      setLoading(false);
-    };
-    checkAuthentication();
-  }, [user]);
-
-  useEffect(() => {
-    if (user) router.push("/");
-  }, [user]);
-  
-
+    if (isAuthUser) router.back();
+  }, [isAuthUser]);
 
   return (
     <div><div className="min-h-screen flex items-center justify-center bg-white">
       <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl uppercase font-medium mb-1">Login</h2>
-        <h1 lassName="text-gray-600 ml-3 cursor-pointer font-bold">{errorMsg}</h1>
+        
         <p className="text-gray-600 mb-6 text-sm">
           Login if you are returning customer
         </p>
-        <form action="">
+        
           <div className="space-y-4">
-            <div>
-              <label className="text-gray-600 mb-2 block">Email Address</label>
-              <input
-                type="email"
-                className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 input-box"
-                placeholder="Enter Your Email"
-                onChange={(event) =>
-                  setValues((prev) => ({ ...prev, email: event.target.value }))
-                }
-              />
-            </div>
-            <div>
-              <label className="text-gray-600 mb-2 block">Password</label>
-              <input
-                type="password"
-                className="block w-full border input-box border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0"
-                placeholder="Enter Your Password"
-                onChange={(event) =>
-                  setValues((prev) => ({ ...prev, pass: event.target.value }))
-                }
-              />
-            </div>
+          {loginFormControls.map((controlItem) =>
+                  controlItem.componentType === "input" ? (
+                    <InputComponent
+                      type={controlItem.type}
+                      placeholder={controlItem.placeholder}
+                      label={controlItem.label}
+                      value={formData[controlItem.id]}
+                      onChange={(event) => {
+                        setFormData({
+                          ...formData,
+                          [controlItem.id]: event.target.value,
+                        });
+                      }}
+                    />
+                  ) : null
+                )}
           </div>
           <div className="flex items-center justify-between mt-6">
             <div className="flex items-center">
@@ -136,12 +120,23 @@ const page = () => {
             <button
               type="submit"
               className="block w-full py-2 text-center bg-pink-100 border border-red-700 rounded hover:bg-pink-200 hover:text-pink-400 transition items-center justify-between uppercase font-roboto font-medium"
-              disabled={submitButtonDisabled} onClick={handleSubmission}
+              disabled={!isValidForm()}
+                  onClick={handleLogin}
             >
-              Login
+              {componentLevelLoader && componentLevelLoader.loading ? (
+                    <ComponentLevelLoader
+                      text={"Logging In"}
+                      color={"#ffffff"}
+                      loading={
+                        componentLevelLoader && componentLevelLoader.loading
+                      }
+                    />
+                  ) : (
+                    "Login"
+                  )}
             </button>
           </div>
-        </form>
+        
         {/*loginwith*/}
         <div className="mt-6 flex justify-center relative">
           <div className="text-gray-600 uppercase px-3 bg-white z-10 relative">
@@ -152,22 +147,24 @@ const page = () => {
         <div className="flex mt-4 gap-3">
 
           <Link href=""
-             onClick={handleSignIn} 
+             
+             
             className="w-full py-2 text-center text-white bg-yellow-600 rounded uppercase font-roboto font-medium text-sm  hover:bg-yellow-500"
           >
             Google
           </Link>
         </div>
         <p className="mt-4 text-gray-600 text-center">
-          Don't have an account?{" "}
+          Don't have an account?
           <Link href="/register" className="text-orange-400">
             Register Now
           </Link>
         </p>
       </div>
+      <Notification />
     </div>
+    
     </div>
   )
 }
 
-export default page

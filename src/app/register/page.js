@@ -1,179 +1,161 @@
-"use client"
+'use client'
 
-import React from 'react';
-import { UserAuth } from '@/context/Authcontext';
-import Link from 'next/link';
-import { useState, useEffect, } from 'react';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { useRouter } from 'next/navigation';
-import { auth } from '../firebase';
+import InputComponent from "@/components/FormElements/InputComponent";
+import SelectComponent from "@/components/FormElements/SelectComponent";
+import ComponentLevelLoader from "@/components/Loader/componentlevel";
+import Notification from "@/components/Notification";
+import { GlobalContext } from "@/context";
+import { registerNewUser } from "@/services/register";
+import { registrationFormControls } from "@/utils";
+import { useRouter } from "next/navigation"; // Change this line
+import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import Link from "next/link";
 
+const initialFormData = {
+  name: "",
+  email: "",
+  password: "",
+  role: "customer",
+};
 
+export default function Register() {
+  const [formData, setFormData] = useState(initialFormData);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const { pageLevelLoader, setPageLevelLoader, isAuthUser } =
+    useContext(GlobalContext);
 
-const page = () => {
+  const router = useRouter();
 
-    const { user, googleSignIn, logOut } = UserAuth();
-    const router = useRouter();
-    const [values, setValues] = useState({
-        name: "",
-        email: "",
-        pass: "",
-    });
-    const [errorMsg, setErrorMsg] = useState("");
-    const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
-    
-    const handleSubmission = () => {
-        if (!values.name || !values.email || !values.pass) {
-            setErrorMsg("Fill all fields");
-            return;
-        }
-        setErrorMsg("");
-
-        setSubmitButtonDisabled(true);
-        createUserWithEmailAndPassword(auth, values.email, values.pass)
-            .then(async (res) => {
-                setSubmitButtonDisabled(false);
-                const user = res.user;
-                await updateProfile(user, {
-                    displayName: values.name,
-                });
-
-              
-            })
-            .catch((err) => {
-                console.error(err);
-                setSubmitButtonDisabled(false);
-                setErrorMsg(err.message);
-            });
-            router.back();
-    };
-
-    
-    const [loading, setLoading] = useState(true);
-
-    const handleSignIn = async () => {
-        try {
-            await googleSignIn();
-            router.back();
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
- 
-    useEffect(() => {
-        const checkAuthentication = async () => {
-            await new Promise((resolve) => setTimeout(resolve, 50));
-            setLoading(false);
-        };
-        checkAuthentication();
-    }, [user]);
-
-    useEffect(() => {
-        if (user) {
-            router.push('/unauthorized');
-        }
-    }, [user, router]);
-
-    
-
+  function isFormValid() {
     return (
-        
-        <div><div className="min-h-screen flex items-center justify-center bg-white">
-            <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
-                <h2 className="text-2xl uppercase font-medium mb-1">Create an account</h2>
-                <h1 lassName="text-gray-600 ml-3 cursor-pointer font-bold">{errorMsg}</h1>
-                <p className="text-gray-600 mb-6 text-sm">
-                    Register if you don't have account.
-                </p>
-                <form action="">
-                    <div className="space-y-4">
-                        <div>
-                            <label className="text-gray-600 mb-2 block">Your Name</label>
-                            <input
-                                type="text"
-                                className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 input-box"
-                                placeholder="Enter Your Full Name"
-                                onChange={(event) =>
-                                    setValues((prev) => ({ ...prev, name: event.target.value }))}
-                            />
-                        </div>
-                        <div>
-                            <label className="text-gray-600 mb-2 block">Email Address</label>
-                            <input
-                                type="email"
-                                className="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 input-box"
-                                placeholder="Enter Your Email"
-                                onChange={(event) =>
-                                    setValues((prev) => ({ ...prev, email: event.target.value }))
-                                  }
-                            />
-                        </div>
-                        <div>
-                            <label className="text-gray-600 mb-2 block">Password</label>
-                            <input
-                                type="password"
-                                className="block w-full border input-box border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0"
-                                placeholder="Enter Your Password"
-                                onChange={(event) =>
-                                    setValues((prev) => ({ ...prev, pass: event.target.value }))
-                                  }
-                            />
-                        </div>
-                    </div>
-                    <div className="flex items-center justify-between mt-6">
-                        <div className="flex items-center">
-                            <input
-                                type="checkbox"
-                                id="agree"
-                                className="text-orange-400 focus:ring-0 rounded-sm cursor-pointer"
-                            />
-                            <label htmlFor="agree" className="text-gray-600 ml-3 cursor-pointer">
-                                Remember me
-                            </label>
-                        </div>
+      formData &&
+      formData.name &&
+      formData.name.trim() !== "" &&
+      formData.email &&
+      formData.email.trim() !== "" &&
+      formData.password &&
+      formData.password.trim() !== ""
+    );
+  }
 
+  async function handleRegisterOnSubmit() {
+    setPageLevelLoader(true);
+    const data = await registerNewUser(formData);
 
-                    </div>
-                    <div className="mt-4">
-                        <button
-                            type="submit"
-                            className="block w-full py-2 text-center bg-pink-100 border border-red-700 rounded hover:bg-pink-200 hover:text-pink-400 transition items-center justify-between uppercase font-roboto font-medium"
-                            onClick={handleSubmission} disabled={submitButtonDisabled}
-                        >
-                            Create account
-                        </button>
-                    </div>
-                </form>
-                {/*loginwith*/}
-                <div className="mt-6 flex justify-center relative">
-                    <div className="text-gray-600 uppercase px-3 bg-white z-10 relative">
-                        Or Signup with
-                    </div>
-                    <div className="absolute left-0 top-3 w-full border-b-2 border-gray-200" />
-                </div>
-                <div className="flex mt-4 gap-3">
+    if (data.success) {
+      toast.success(data.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setIsRegistered(true);
+      setPageLevelLoader(false);
+      setFormData(initialFormData);
+    } else {
+      toast.error(data.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      setPageLevelLoader(false);
+      setFormData(initialFormData);
+    }
+  }
 
-                    <Link
-                        href="/" onClick={handleSignIn}
-                        className="w-full py-2 text-center text-white bg-yellow-600 rounded uppercase font-roboto font-medium text-sm  hover:bg-yellow-500"
-                    >
-                        Google
-                    </Link>
-                </div>
-                <p className="mt-4 text-gray-600 text-center">
-                    Already have a account?{" "}
-                    <Link href="/login" className="text-orange-400">
-                        Login here
-                    </Link>
-                </p>
+  useEffect(() => {
+    if (isAuthUser) router.push("/");
+  }, [isAuthUser]);
 
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
+        <h2 className="text-2xl uppercase font-medium mb-1">Create an account</h2>
+        <h1 className="text-gray-600 ml-3 cursor-pointer font-bold"></h1>
+        <p className="text-gray-600 mb-6 text-sm">
+          {isRegistered ? "Registration Successfull!!!!" : "Register if you don't have an account."}
+        </p>
+        {isRegistered ? (
+          <button
+            className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide"
+            onClick={() => router.push('/login')}
+          >
+            Login
+          </button>
+        ) : (
+          <div className="space-y-4" >
+            {registrationFormControls.map((controlItem) =>
+              controlItem.componentType === "input" ? (
+                <InputComponent
+                  type={controlItem.type}
+                  placeholder={controlItem.placeholder}
+                  label={controlItem.label}
+                  onChange={(event) => {
+                    setFormData({
+                      ...formData,
+                      [controlItem.id]: event.target.value,
+                    });
+                  }}
+                  value={formData[controlItem.id]}
+                />
+              ) : controlItem.componentType === "select" ? (
+                <SelectComponent
+                  options={controlItem.options}
+                  label={controlItem.label}
+                  onChange={(event) => {
+                    setFormData({
+                      ...formData,
+                      [controlItem.id]: event.target.value,
+                    });
+                  }}
+                  value={formData[controlItem.id]}
+                />
+              ) : null
+            )}
+            <div className="flex items-center justify-between mt-6">
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="agree"
+                  className="text-orange-400 focus:ring-0 rounded-sm cursor-pointer"
+                />
+                <label htmlFor="agree" className="text-gray-600 ml-3 cursor-pointer">
+                  Remember me
+                </label>
+              </div>
             </div>
+            <div className="mt-4">
+              <button
+                type="submit"
+                className="block w-full py-2 text-center bg-pink-100 border border-red-700 rounded hover:bg-pink-200 hover:text-pink-400 transition items-center justify-between uppercase font-roboto font-medium"
+                disabled={!isFormValid()}
+                onClick={handleRegisterOnSubmit}
+              >
+                Create Account
+                
+              </button>
+            </div>
+          </div>
+        )}
+        {/* Login with */}
+        <div className="mt-6 flex justify-center relative">
+          <div className="text-gray-600 uppercase px-3 bg-white z-10 relative">
+            Or Signup with
+          </div>
+          <div className="absolute left-0 top-3 w-full border-b-2 border-gray-200" />
         </div>
+        <div className="flex mt-4 gap-3">
+          <Link
+            href="/"
+            className="w-full py-2 text-center text-white bg-yellow-600 rounded uppercase font-roboto font-medium text-sm hover:bg-yellow-500"
+          >
+            Google
+          </Link>
         </div>
-        
-    )
-    
+        <p className="mt-4 text-gray-600 text-center">
+          Already have an account?{" "}
+          <Link href="/login" className="text-orange-400">
+            Login here
+          </Link>
+        </p>
+      </div>
+      <Notification />
+    </div>
+  );
 }
-
-export default page

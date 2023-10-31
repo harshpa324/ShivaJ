@@ -51,8 +51,9 @@ function NavItems({ isModalView = false, isAdminView, router }) {
 export default function Navbar() {
   const { showNavModal, setShowNavModal } = useContext(GlobalContext);
   const {
-    
+    user,
     isAuthUser,
+    setUser,
     setIsAuthUser,
     currentUpdatedProduct,
     setCurrentUpdatedProduct,
@@ -80,17 +81,9 @@ export default function Navbar() {
     localStorage.clear();
     router.push("/");
   }
-  const { user, googleSignIn, logOut } = UserAuth();
+ 
+  const isAdminView = pathName.includes("admin-view");
   const [loading, setLoading] = useState(true);
-
-
-  const handleSignOut = async () => {
-    try {
-      await logOut();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     const checkAuthentication = async () => {
@@ -99,7 +92,6 @@ export default function Navbar() {
     };
     checkAuthentication();
   }, [user]);
-  const isAdminView = pathName.includes("admin-view");
 
   return (
     <>
@@ -123,7 +115,8 @@ export default function Navbar() {
             <img src="images/logo.jpg" className="w-32" alt="SHIVA JWELLERS" />
           </div>
           <NavItems router={router} isAdminView={isAdminView} />
-          {loading? null :user && !isAdminView ? (
+          
+          {loading? null :isAuthUser && !isAdminView ? (
             <Fragment>
               <div className="flex items-center justify-between space-x-4">
                 <a
@@ -147,7 +140,7 @@ export default function Navbar() {
                   </div>
                   <div className="text-xs leading-3">Cart</div>
                   <span className="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-pink-400 text-white text-xs ">
-                    8
+                    8 
                   </span>
                 </a>
                 <a
@@ -165,44 +158,46 @@ export default function Navbar() {
           ) : null}
 
 
-          {user?.email === "harshpa324@gmail.com" ? (
-            isAdminView ? (
+          {user?.role === "admin" ? (
+              isAdminView ? (
+                <button
+                className={
+                  "mt-1.5 inline-block text-red-700 px-5 py-3 hover:text-pink-400 transition font-medium upprcase tracking-wide"
+                }
+                  onClick={() => router.push("/")}
+                >
+                  Client View {user.email}
+                </button>
+              ) : (
+                <button
+                  onClick={() => router.push("/admin-view")}
+                className={
+                  "mt-1.5 inline-block text-red-700 px-5 py-3 hover:text-pink-400 transition font-medium upprcase tracking-wide"
+                }
+                >
+                  Admin View
+                </button>
+              )
+            ) : null}
+            {isAuthUser ? (
               <button
+                onClick={handleLogout}
                 className={
-                  "mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium upprcase tracking-wide text-white"
-                }
-                onClick={() => router.push("/")}
-              >
-                Client View
-              </button>
-            ) : (
-              <Link
-                href="/admin-view"
-                className={
-                  "mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium upprcase tracking-wide text-white"
-                }
-              >
-                Admin View
-              </Link>
-            )
-          ) : null}
-          {loading? null : user ? (
-            <button
-              onClick={handleSignOut}
-              className={
                 "text-red-700 hover:text-pink-400 transition"
               }
-            >
-              Logout
-            </button>
-          ) : (
-            <Link href="/login" className={
-              "text-red-700 hover:text-pink-400 transition"
-            }
-            >
-              Login/Register
-            </Link>
-          )}
+              >
+                Logout
+              </button>
+            ) : (
+              <button
+                onClick={() => router.push("/login")}
+                className={
+                "text-red-700 hover:text-pink-400 transition"
+              }
+              >
+                Login/Register
+              </button>
+            )}
           <button
             data-collapse-toggle="navbar-sticky"
             type="button"
