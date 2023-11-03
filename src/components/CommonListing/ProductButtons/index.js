@@ -7,6 +7,7 @@ import { deleteAProduct } from "@/services/product";
 import { usePathname, useRouter } from "next/navigation";
 import { useContext } from "react";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 export default function ProductButton({ item }) {
   const pathName = usePathname();

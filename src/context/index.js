@@ -58,6 +58,7 @@ export default function GlobalState({ children }) {
   useEffect(() => {
     if (Cookies.get("token") !== undefined) {
       setIsAuthUser(true);
+      
       const userData = JSON.parse(localStorage.getItem("user")) || {};
       const getCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
       setUser(userData);
@@ -71,11 +72,12 @@ export default function GlobalState({ children }) {
   useEffect(() => {
     if (
       pathName !== "/register" &&
-      !pathName.includes("product") &&
+      (pathName.includes("all-products") ||
+      pathName.includes("add-product")) &&
       pathName !== "/" &&
-      user &&
+      ((user &&
       Object.keys(user).length === 0 &&
-      protectedRoutes.includes(pathName) > -1
+      protectedRoutes.includes(pathName)) >-1 )
     )
       router.push("/login");
   }, [user, pathName]);

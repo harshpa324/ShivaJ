@@ -64,7 +64,7 @@ export default function Navbar() {
   const pathName = usePathname();
   const router = useRouter();
 
-  console.log(currentUpdatedProduct, "navbar");
+  
 
   useEffect(() => {
     if (
@@ -79,7 +79,7 @@ export default function Navbar() {
     setUser(null);
     Cookies.remove("token");
     localStorage.clear();
-    router.push("/");
+    
   }
  
   const isAdminView = pathName.includes("admin-view");

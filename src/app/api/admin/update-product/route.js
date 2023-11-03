@@ -11,7 +11,7 @@ export async function PUT(req) {
 
     const isAuthUser = await AuthUser(req);
 
-    if (true) {
+    if (isAuthUser?.role === "admin") {
       const extractData = await req.json();
       const {
         _id,

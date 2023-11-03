@@ -5,7 +5,7 @@ import { GlobalContext } from "@/context";
 import { getAllOrdersForAllUsers, updateStatusOfOrder } from "@/services/order";
 import { useContext, useEffect } from "react";
 import { PulseLoader } from "react-spinners";
-
+import Link from "next/link";
 export default function AdminView() {
   const {
     allOrdersForAllUsers,
@@ -129,12 +129,12 @@ export default function AdminView() {
                         ))}
                       </div>
                       <div className="flex gap-5">
-                        <button className="disabled:opacity-50 mt-5 mr-5  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide">
+                        <Link href="" className="disabled:opacity-50 mt-5 mr-5  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide">
                           {item.isProcessing
                             ? "Order is Processing"
                             : "Order is delivered"}
-                        </button>
-                        <button
+                        </Link>
+                        <Link href=""
                           onClick={() => handleUpdateOrderStatus(item)}
                           disabled={!item.isProcessing}
                           className="disabled:opacity-50 mt-5 mr-5  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
@@ -153,7 +153,7 @@ export default function AdminView() {
                           ) : (
                             "Update Order Status"
                           )}
-                        </button>
+                        </Link>
                       </div>
                     </li>
                   ))}

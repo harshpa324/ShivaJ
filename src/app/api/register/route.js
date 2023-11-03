@@ -55,6 +55,7 @@ export async function POST(req) {
 
             if (newlyCreatedUser) {
                 return NextResponse.json({
+                    
                     success: true,
                     message: "Account created successfully.",
                 });

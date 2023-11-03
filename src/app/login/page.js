@@ -65,7 +65,7 @@ export default function Login() {
       setIsAuthUser(false);
       setComponentLevelLoader({ loading: false, id: "" });
     }
-    router.back();
+    
   }
 
   console.log(isAuthUser, user);

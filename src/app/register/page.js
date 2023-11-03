@@ -19,6 +19,22 @@ const initialFormData = {
   role: "customer",
 };
 
+const handleRegistrationAndLogin = async () => {
+  const isValidEmailAddress = validator.isEmail(email);
+  setError((e) => ({ ...e, password: null }));
+  if (isValidEmailAddress) {
+    try {
+      // Register the user and, if successful, log them in
+      await app.emailPasswordAuth.registerUser(email, password);
+      return await handleLogin();
+    } catch (err) {
+      handleAuthenticationError(err, setError);
+    }
+  } else {
+    setError((err) => ({ ...err, email: "Email is invalid." }));
+  }
+};
+
 export default function Register() {
   const [formData, setFormData] = useState(initialFormData);
   const [isRegistered, setIsRegistered] = useState(false);
@@ -58,9 +74,10 @@ export default function Register() {
       setFormData(initialFormData);
     }
   }
+  
 
   useEffect(() => {
-    if (isAuthUser) router.push("/");
+    if (isAuthUser) router.back();
   }, [isAuthUser]);
 
   return (
@@ -73,7 +90,7 @@ export default function Register() {
         </p>
         {isRegistered ? (
           <button
-            className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide"
+            className="block w-full py-2 text-center bg-pink-100 border border-red-700 rounded hover:bg-pink-200 hover:text-pink-400 transition items-center justify-between uppercase font-roboto font-medium"
             onClick={() => router.push('/login')}
           >
             Login

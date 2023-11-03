@@ -13,7 +13,7 @@ import {
 } from "@/utils";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig, firebaseStroageURL } from "@/app/firebase";
-
+import Link from "next/link";
 import {
   getDownloadURL,
   getStorage,
