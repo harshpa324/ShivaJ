@@ -72,12 +72,13 @@ export default function GlobalState({ children }) {
   useEffect(() => {
     if (
       pathName !== "/register" &&
-      (pathName.includes("all-products") ||
+      (pathName.includes("admin-view/all-products") ||
       pathName.includes("add-product")) &&
       pathName !== "/" &&
       ((user &&
       Object.keys(user).length === 0 &&
       protectedRoutes.includes(pathName)) >-1 )
+      && user?.role!=="admin"
     )
       router.push("/login");
   }, [user, pathName]);
@@ -89,8 +90,8 @@ export default function GlobalState({ children }) {
       Object.keys(user).length > 0 &&
       user?.role !== "admin" &&
       protectedAdminRoutes.indexOf(pathName) > -1
-    )
-      router.push("/unauthorized-page");
+    ){
+      router.push("/unauthorized-page");}
   }, [user, pathName]);
 
   return (

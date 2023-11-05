@@ -99,11 +99,11 @@ export default function CommonDetails({ item }) {
               <button
                 type="button"
                 onClick={() => handleAddToCart(item)}
-                className="mt-1.5 inline-block bg-black px-5 py-3 text-xs font-medium tracking-wide uppercase text-white"
+                className="mt-1.5 inline-block bg-pink-400 hover:bg-orange-400 px-5 py-3 text-xs font-medium tracking-wide uppercase text-white"
               >
                 {componentLevelLoader && componentLevelLoader.loading ? (
                   <ComponentLevelLoader
-                    text={"Adding to Cart"}
+                    /*text={"Adding to Cart"}*/
                     color={"#ffffff"}
                     loading={
                       componentLevelLoader && componentLevelLoader.loading
