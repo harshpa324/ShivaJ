@@ -85,11 +85,13 @@ export default function Cart() {
     );
   }
 
-  return (
+  return ( 
+    <div>
     <CommonCart
       componentLevelLoader={componentLevelLoader}
       handleDeleteCartItem={handleDeleteCartItem}
       cartItems={cartItems}
     />
+    </div>
   );
 }
