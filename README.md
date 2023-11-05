@@ -2,12 +2,11 @@ A website that shows all the availaible products and their Description in Shiva 
 #things to do
 - [x] Build frontend
 - [x] Add API
-- [ ] Add Authorisation details
-- [ ] Add Products page
-- [ ] Add Categories
-- [ ] Add About Us
+- [x] Add Authorisation details
+- [x] Add Products page
+- [x] Add Categories
 - [ ] Add contact us
-- [ ] Add cart
+- [x] Add cart
 - [ ] Add checkout
-- [ ] Add billing
+- [x] Add billing
 - [ ] Add option to save favourites
