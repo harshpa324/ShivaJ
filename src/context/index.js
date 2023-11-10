@@ -34,7 +34,9 @@ export default function GlobalState({ children }) {
   const [user, setUser] = useState(null);
   const [currentUpdatedProduct, setCurrentUpdatedProduct] = useState(null);
   const [showCartModal, setShowCartModal] = useState(false);
+  const [showWishModal, setShowWishModal] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [wishItems, setWishItems] = useState([]);
   const [addresses, setAddresses] = useState([]);
   const [addressFormData, setAddressFormData] = useState({
     fullName: "",
@@ -63,6 +65,20 @@ export default function GlobalState({ children }) {
       const getCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
       setUser(userData);
       setCartItems(getCartItems);
+    } else {
+      setIsAuthUser(false);
+      setUser({}); //unauthenticated user
+    }
+  }, [Cookies]);
+
+  useEffect(() => {
+    if (Cookies.get("token") !== undefined) {
+      setIsAuthUser(true);
+      
+      const userData = JSON.parse(localStorage.getItem("user")) || {};
+      const getWishItems = JSON.parse(localStorage.getItem("wishItems")) || [];
+      setUser(userData);
+      setWishItems(getWishItems);
     } else {
       setIsAuthUser(false);
       setUser({}); //unauthenticated user
@@ -111,8 +127,12 @@ export default function GlobalState({ children }) {
         setCurrentUpdatedProduct,
         showCartModal,
         setShowCartModal,
+        showWishModal,
+        setShowWishModal,
         cartItems,
         setCartItems,
+        wishItems,
+        setWishItems,
         addresses,
         setAddresses,
         addressFormData,

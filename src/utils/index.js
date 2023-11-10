@@ -6,23 +6,33 @@ export const navOptions = [
     },
     {
       id: "listing",
-      label: "All Products",
+      label: "All Jewellery",
       path: "/product/listing/all-products",
     },
     {
-      id: "listingMen",
-      label: "Men",
-      path: "/product/listing/men",
+      id: "listinggold",
+      label: "Gold",
+      path: "/product/listing/gold",
     },
     {
-      id: "listingWomen",
-      label: "Women",
-      path: "/product/listing/women",
+      id: "listingsilver",
+      label: "Silver",
+      path: "/product/listing/silver",
     },
     {
-      id: "listingKids",
-      label: "kids",
-      path: "/product/listing/kids",
+      id: "listingdiamonds",
+      label: "Diamond",
+      path: "/product/listing/diamond",
+    },
+    {
+      id: "listingring",
+      label: "Rings",
+      path: "/product/listing/ring",
+    },
+    {
+      id: "listingearring",
+      label: "Earrings",
+      path: "/product/listing/earring",
     },
   ];
   
@@ -111,27 +121,36 @@ export const navOptions = [
       componentType: "select",
       options: [
         {
-          id: "men",
-          label: "Men",
+          id: "gold",
+          label: "Gold",
         },
         {
-          id: "women",
-          label: "Women",
+          id: "silver",
+          label: "Silver",
         },
         {
-          id: "kids",
-          label: "Kids",
+          id: "diamond",
+          label: "Diamond",
         },
+        {
+          id: "ring",
+          label: "Ring"
+        },
+        {
+          id: "earring",
+          label: "Earrings"
+        },
+        
       ],
     },
-    {
+    /*{
       id: "deliveryInfo",
       type: "text",
       placeholder: "Enter deliveryInfo",
       label: "Delivery Info",
       componentType: "input",
-    },
-    {
+    },*/
+    /*{
       id: "onSale",
       type: "",
       placeholder: "",
@@ -154,23 +173,9 @@ export const navOptions = [
       placeholder: "Enter Price Drop",
       label: "Price Drop",
       componentType: "input",
-    },
+    },*/
   ];
   
-  export const AvailableSizes = [
-    {
-      id: "s",
-      label: "S",
-    },
-    {
-      id: "m",
-      label: "M",
-    },
-    {
-      id: "l",
-      label: "L",
-    },
-  ];
   
 
   

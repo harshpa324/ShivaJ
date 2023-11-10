@@ -4,7 +4,7 @@ import { Fragment, useContext, useEffect } from "react";
 import CommonModal from "../CommonModal";
 import { GlobalContext } from "@/context";
 import { deleteFromCart, getAllCartItems } from "@/services/cart";
-import { toast } from "react-toastify";
+import { collapseToast, toast } from "react-toastify";
 import ComponentLevelLoader from "../Loader/componentlevel";
 import { useRouter } from "next/navigation";
 
@@ -23,7 +23,7 @@ export default function CartModal() {
 
   async function extractAllCartItems() {
     const res = await getAllCartItems(user?._id);
-
+    
     if (res.success) {
       const updatedData =
         res.data && res.data.length

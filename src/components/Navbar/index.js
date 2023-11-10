@@ -119,18 +119,18 @@ export default function Navbar() {
           {loading? null :isAuthUser && !isAdminView ? (
             <Fragment>
               <div className="flex items-center justify-between space-x-4">
-                <Link
-                  href="/cart"
+                {/*<Link
+                  href="/wishlist"
                   className="text-center text-red-700 hover:text-pink-400 transition relative"
                 >
                   <div className="text 2xl">
                     <i className="far fa-heart" />
                   </div>
                   <div className="text-xs leading-3">Wish List</div>
-                  <span className="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-pink-400 text-white text-xs ">
-                    8
-                  </span>
-                </Link>
+                  {/* <span className="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-pink-400 text-white text-xs ">
+                    
+                  </span> */}
+                
                 <Link
                   href="/cart"
                   className="text-center text-red-700 hover:text-pink-400 transition relative"
@@ -139,9 +139,9 @@ export default function Navbar() {
                     <i className="fas fa-shopping-bag" />
                   </div>
                   <div className="text-xs leading-3">Cart</div>
-                  <span className="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-pink-400 text-white text-xs ">
-                    8 
-                  </span>
+                  {/* <span className="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-pink-400 text-white text-xs ">
+                    
+                  </span> */}
                 </Link>
                 <Link
                   href="/account"

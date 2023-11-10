@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { toast } from "react-toastify";
 import Link from "next/link";
 
+
 export default function ProductButton({ item }) {
   const pathName = usePathname();
   const {
@@ -16,7 +17,8 @@ export default function ProductButton({ item }) {
     setComponentLevelLoader,
     componentLevelLoader,
     user,
-    showCartModal, setShowCartModal
+    showCartModal, setShowCartModal,
+    showWishModal, setShowWishModal
   } = useContext(GlobalContext);
   const router = useRouter();
 
@@ -45,7 +47,7 @@ export default function ProductButton({ item }) {
     setComponentLevelLoader({ loading: true, id: getItem._id });
 
     const res = await addToCart({ productID: getItem._id, userID: user._id });
-    console.log(res);
+     
     if (res.success) {
       toast.success(res.message, {
         position: toast.POSITION.TOP_RIGHT,
@@ -60,9 +62,8 @@ export default function ProductButton({ item }) {
       setShowCartModal(true)
     }
 
-    console.log(res);
-  }
-
+     
+  } 
   return isAdminView ? (
     <>
       <button
@@ -109,6 +110,8 @@ export default function ProductButton({ item }) {
           "Add To Cart"
         )}
       </button>
+      
     </>
+    
   );
 }
