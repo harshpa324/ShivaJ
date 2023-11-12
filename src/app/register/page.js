@@ -125,7 +125,7 @@ export default function Register() {
                 />
               ) : null
             )}
-            <div className="flex items-center justify-between mt-6">
+            {/*<div className="flex items-center justify-between mt-6">
               <div className="flex items-center">
                 <input
                   type="checkbox"
@@ -136,7 +136,7 @@ export default function Register() {
                   Remember me
                 </label>
               </div>
-            </div>
+                </div>*/}
             <div className="mt-4">
               <button
                 type="submit"
@@ -150,7 +150,7 @@ export default function Register() {
             </div>
           </div>
         )}
-        {/* Login with */}
+        {/* Login with 
         <div className="mt-6 flex justify-center relative">
           <div className="text-gray-600 uppercase px-3 bg-white z-10 relative">
             Or Signup with
@@ -164,13 +164,14 @@ export default function Register() {
           >
             Google
           </Link>
-        </div>
+        </div>*/}
+        {isRegistered?null:(
         <p className="mt-4 text-gray-600 text-center">
           Already have an account?{" "}
           <Link href="/login" className="text-orange-400">
             Login here
           </Link>
-        </p>
+        </p>)}
       </div>
       <Notification />
     </div>

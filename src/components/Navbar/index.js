@@ -112,7 +112,7 @@ export default function Navbar() {
             onClick={() => router.push("/")}
             className="flex items-center cursor-pointer"
           >
-            <img src="images/logo.jpg" className="w-32" alt="SHIVA JWELLERS" />
+            <img src="images/logo.jpg" className="w-24" alt="SHIVA JWELLERS" />
           </div>
           <NavItems router={router} isAdminView={isAdminView} />
           

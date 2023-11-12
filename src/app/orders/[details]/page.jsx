@@ -164,7 +164,7 @@ export default function OrderDetails() {
           </div>
           <button
             onClick={() => router.push(`/`)}
-            className="mt-5 mr-5  inline-block bg-black text-white px-5 py-3 text-xs font-medium uppercase tracking-wide"
+            className="mt-5 mr-5  inline-block bg-pink-400 text-red-700 hover:bg-pink-700 px-5 py-3 text-xs font-medium uppercase tracking-wide"
           >
             Shop Again
           </button>

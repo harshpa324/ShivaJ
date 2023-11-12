@@ -6,10 +6,8 @@ const ProductSchema = new mongoose.Schema(
     description: String,
     price: Number,
     category: String,
-    sizes: Array,
-    deliveryInfo: String,
-    onSale: String,
-    priceDrop: Number,
+    subcategory: String,
+    weight: String,
     imageUrl: String,
   },
   { timestamps: true }

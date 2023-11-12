@@ -7,12 +7,10 @@ import { NextResponse } from "next/server";
 const AddNewProductSchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string().required(),
-  price: Joi.number().required(),
+  price: Joi.number(),
   category: Joi.string().required(),
-  sizes: Joi.array().required(),
-  deliveryInfo: Joi.string().required(),
-  onSale: Joi.string().required(),
-  priceDrop: Joi.number().required(),
+  subcategory: Joi.string(),
+  weight: Joi.string(),
   imageUrl: Joi.string().required(),
 });
 
@@ -33,24 +31,23 @@ export async function POST(req) {
         name,
         description,
         price,
+        weight,
         imageUrl,
         category,
-        sizes,
-        deliveryInfo,
-        onSale,
-        priceDrop,
+        subcategory,
+        
       } = extractData;
 
       const { error } = AddNewProductSchema.validate({
         name,
         description,
         price,
+        weight,
         imageUrl,
         category,
-        sizes,
-        deliveryInfo,
-        onSale,
-        priceDrop,
+        subcategory,
+        
+       
       });
 
       if (error) {

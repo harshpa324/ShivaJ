@@ -27,9 +27,13 @@ export default function ProductTile({ item }) {
             className={`mr-3 text-sm font-semibold  ${
               item.onSale === "yes" ? "line-through" : ""
             }`}
-          >{`$ ${item.price}`}</p>
+          >{item && item.price !== 0 && (
+            `Rs ${item.price}`
+          )}
+          </p>
+          
           {item.onSale === "yes" ? (
-            <p className="mr-3 text-sm font-semibold text-red-700 hover:text-pink-400 transition">{`$ ${(
+            <p className="mr-3 text-sm font-semibold text-red-700 hover:text-pink-400 transition">{`Rs ${(
               item.price -
               item.price * (item.priceDrop / 100)
             ).toFixed(2)}`}</p>

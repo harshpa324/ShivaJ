@@ -36,7 +36,7 @@ export default function CommonDetails({ item }) {
   }
 
   return (
-    <section className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+    <section className="mx-auto pt-20 max-w-screen-xl px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto px-4">
         <div className="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16">
           <div className="lg:col-span-3 lg:row-end-1">
@@ -83,14 +83,21 @@ export default function CommonDetails({ item }) {
             <div className="mt-10 flex flex-col items-center justify-between space-y-4 botder-t border-b py-4 sm:flex-row sm:space-y-0">
               <div className="flex items-end">
                 <h1
-                  className={`text-3xl font-bold mr-2 ${
-                    item.onSale === "yes" ? "line-through" : ""
-                  }`}
+                  className={`text-3xl font-bold mr-2 ${item.onSale === "yes" ? "line-through" : ""
+                    }`}
                 >
-                  ${item && item.price}
+                  {item && item.price !== 0 && (
+                    <>Rs {item.price}</>
+                  )}
+
+                </h1>
+                <h1
+                  className="text-3xl font-bold mr-2 "
+                >
+                  {item.weight}
                 </h1>
                 {item.onSale === "yes" ? (
-                  <h1 className="text-3xl font-bold text-red-700">{`$${(
+                  <h1 className="text-3xl font-bold text-red-700">{`Rs${(
                     item.price -
                     item.price * (item.priceDrop / 100)
                   ).toFixed(2)}`}</h1>
@@ -119,7 +126,7 @@ export default function CommonDetails({ item }) {
                 {item && item.deliveryInfo}
               </li>
               <li className="flex items-center text-left text-sm font-medium text-gray-600">
-                {"Cancel anytime"}
+                {item.category}
               </li>
             </ul>
             <div className="lg:col-span-3">
@@ -140,7 +147,7 @@ export default function CommonDetails({ item }) {
           </div>
         </div>
       </div>
-      <Notification/>
+      <Notification />
     </section>
   );
 }

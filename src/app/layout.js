@@ -5,6 +5,7 @@ import GlobalState from '@/context'
 import Navbar from '@/components/Navbar'
 import { AuthContextProvider } from '@/context/Authcontext'
 import NextTopLoader from 'nextjs-toploader';
+import Footer from '@/components/Footer'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
               />
               
               {children} </main>
+              <Footer />
           </GlobalState>
         </AuthContextProvider>
       </body>

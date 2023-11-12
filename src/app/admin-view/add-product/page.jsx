@@ -60,13 +60,12 @@ async function helperForUPloadingImageToFirebase(file) {
 const initialFormData = {
   name: "",
   price: 0,
+  weight: " ",
   description: "",
-  category: "men",
-  sizes: [],
-  deliveryInfo: "",
-  onSale: "no",
+  category: "gold",
+  subcategory: " ",
   imageUrl: "",
-  priceDrop: 0,
+  
 };
 
 export default function AdminAddNewProduct() {
@@ -157,14 +156,7 @@ export default function AdminAddNewProduct() {
             onChange={handleImage}
           />
 
-          <div className="flex gap-2 flex-col">
-            <label>Available sizes</label>
-            <TileComponent
-              selected={formData.sizes}
-              onClick={handleTileClick}
-              data={AvailableSizes}
-            />
-          </div>
+          
           {adminAddProductformControls.map((controlItem) =>
             controlItem.componentType === "input" ? (
               <InputComponent

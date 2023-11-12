@@ -106,6 +106,14 @@ export const navOptions = [
       label: "Price",
       componentType: "input",
     },
+    
+   {
+    id: "weight",
+    type: "String",
+    placeholder: "Enter Weight",
+    label: "weight",
+    componentType: "input",
+  },
     {
       id: "description",
       type: "text",
@@ -131,6 +139,28 @@ export const navOptions = [
         {
           id: "diamond",
           label: "Diamond",
+        },
+        {
+          id: "ring",
+          label: "Ring"
+        },
+        {
+          id: "earring",
+          label: "Earrings"
+        },
+        
+      ],
+    },
+    {
+      id: "subcategory",
+      type: "",
+      placeholder: "",
+      label: "subCategory",
+      componentType: "select",
+      options: [
+        {
+          id: " ",
+          label: "-"
         },
         {
           id: "ring",

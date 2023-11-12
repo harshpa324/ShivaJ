@@ -39,31 +39,45 @@ export default function CommonCart({
                         </div>
                         <div className="flex items-end justify-between">
                           <p className="text-base font-semibold text-gray-950 text-right">
-                            $
-                            {cartItem &&
-                              cartItem.productID &&
-                              cartItem.productID.price}
-                          </p>
-                          <button
-                            type="button"
-                            className="font-medium text-yellow-700"
-                            onClick={() => handleDeleteCartItem(cartItem._id)}
-                          >
-                            {componentLevelLoader &&
-                            componentLevelLoader.loading &&
-                            componentLevelLoader.id === cartItem._id ? (
-                              <ComponentLevelLoader
-                                text={"Removing"}
-                                color={"#0000000"}
-                                loading={
-                                  componentLevelLoader &&
-                                  componentLevelLoader.loading
-                                }
-                              />
-                            ) : (
-                              "Remove"
-                            )}
-                          </button>
+                            
+                              {cartItem &&
+                                cartItem.productID &&
+                                cartItem.productID.price !== 0 ? (
+                                `Rs ${cartItem.productID.price}`
+                              ) : (
+                                'Price not available'
+                              )}
+                            </p>
+                            <p className="text-base font-semibold text-gray-950 text-right">
+                            
+                              {cartItem &&
+                                cartItem.productID &&
+                                cartItem.productID.weight !== " " ? (
+                                ` ${cartItem.productID.weight}`
+                              ) : (
+                                ''
+                              )}
+                            </p>
+                            <button
+                              type="button"
+                              className="font-medium text-yellow-700"
+                              onClick={() => handleDeleteCartItem(cartItem._id)}
+                            >
+                              {componentLevelLoader &&
+                                componentLevelLoader.loading &&
+                                componentLevelLoader.id === cartItem._id ? (
+                                <ComponentLevelLoader
+                                  text={"Removing"}
+                                  color={"#0000000"}
+                                  loading={
+                                    componentLevelLoader &&
+                                    componentLevelLoader.loading
+                                  }
+                                />
+                              ) : (
+                                "Remove"
+                              )}
+                            </button>
                         </div>
                       </div>
                     </div>
@@ -78,32 +92,33 @@ export default function CommonCart({
             <div className="flex justify-between items-center">
               <p className="text-sm text-gray-400">Subtotal</p>
               <p className="text-lg text-black font-semibold">
-                $
+                Rs
                 {cartItems && cartItems.length
                   ? cartItems.reduce(
-                      (total, item) => item.productID.price + total,
-                      0
-                    )
+                    (total, item) => item.productID.price + total,
+                    0
+                  )
                   : "0"}
               </p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-sm text-gray-400">Shipping</p>
-              <p className="text-lg text-black font-semibold">$0</p>
+              <p className="text-lg text-black font-semibold">Rs0</p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-sm text-gray-400">Total</p>
               <p className="text-lg text-black font-semibold">
-                $
+                Rs
                 {cartItems && cartItems.length
                   ? cartItems.reduce(
-                      (total, item) => item.productID.price + total,
-                      0
-                    )
+                    (total, item) => item.productID.price + total,
+                    0
+                  )
                   : "0"}
               </p>
             </div>
             <div className="mt-5 text-center">
+              <h1>Vist Shop for buying</h1>
               <button
                 onClick={() => router.push("/checkout")}
                 disabled={cartItems && cartItems.length === 0}

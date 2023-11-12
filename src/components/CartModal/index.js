@@ -23,25 +23,25 @@ export default function CartModal() {
 
   async function extractAllCartItems() {
     const res = await getAllCartItems(user?._id);
-    
+
     if (res.success) {
       const updatedData =
         res.data && res.data.length
           ? res.data.map((item) => ({
-              ...item,
-              productID: {
-                ...item.productID,
-                price:
-                  item.productID.onSale === "yes"
-                    ? parseInt(
-                        (
-                          item.productID.price -
-                          item.productID.price * (item.productID.priceDrop / 100)
-                        ).toFixed(2)
-                      )
-                    : item.productID.price,
-              },
-            }))
+            ...item,
+            productID: {
+              ...item.productID,
+              price:
+                item.productID.onSale === "yes"
+                  ? parseInt(
+                    (
+                      item.productID.price -
+                      item.productID.price * (item.productID.priceDrop / 100)
+                    ).toFixed(2)
+                  )
+                  : item.productID.price,
+            },
+          }))
           : [];
       setCartItems(updatedData);
       localStorage.setItem("cartItems", JSON.stringify(updatedData));
@@ -106,10 +106,19 @@ export default function CartModal() {
                       </h3>
                     </div>
                     <p className="mt-1 text-sm text-gray-600">
-                      $
                       {cartItem &&
                         cartItem.productID &&
-                        cartItem.productID.price}
+                        cartItem.productID.price !== 0 ? (
+                        `Rs ${cartItem.productID.price}`
+                      ) : (
+                        'Price not available'
+                      )}
+                    </p>
+                    <p className="mt-1 text-sm text-gray-600">
+
+                      {cartItem &&
+                        cartItem.productID &&
+                        cartItem.productID.weight}
                     </p>
                   </div>
                   <div className="flex flex-1 items-end justify-between text-sm">
@@ -119,8 +128,8 @@ export default function CartModal() {
                       onClick={() => handleDeleteCartItem(cartItem._id)}
                     >
                       {componentLevelLoader &&
-                      componentLevelLoader.loading &&
-                      componentLevelLoader.id === cartItem._id ? (
+                        componentLevelLoader.loading &&
+                        componentLevelLoader.id === cartItem._id ? (
                         <ComponentLevelLoader
                           text={"Removing"}
                           color={"#000000"}

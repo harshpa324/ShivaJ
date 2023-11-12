@@ -17,12 +17,10 @@ export async function PUT(req) {
         _id,
         name,
         price,
+        weight,
         description,
         category,
-        sizes,
-        deliveryInfo,
-        onSale,
-        priceDrop,
+        subcategory,
         imageUrl,
       } = extractData;
 
@@ -35,10 +33,8 @@ export async function PUT(req) {
           price,
           description,
           category,
-          sizes,
-          deliveryInfo,
-          onSale,
-          priceDrop,
+          weight,
+          subcategory,
           imageUrl,
         },
         { new: true }

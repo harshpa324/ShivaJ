@@ -101,8 +101,8 @@ export default function Login() {
                   ) : null
                 )}
           </div>
-          <div className="flex items-center justify-between mt-6">
-            <div className="flex items-center">
+           {/*<div className="flex items-center justify-between mt-6">
+           <div className="flex items-center">
               <input
                 type="checkbox"
                 id="agree"
@@ -111,11 +111,11 @@ export default function Login() {
               <label htmlFor="agree" className="text-gray-600 ml-3 cursor-pointer">
                 Remember me
               </label>
-            </div>
+                    </div>
             <Link href="#" className="text-orange-400">
               Forgot Password
             </Link>
-          </div>
+          </div>*/}
           <div className="mt-4">
             <button
               type="submit"
@@ -125,7 +125,7 @@ export default function Login() {
             >
               {componentLevelLoader && componentLevelLoader.loading ? (
                     <ComponentLevelLoader
-                      text={"Logging In"}
+                      text={"     Logging In    "}
                       color={"#ffffff"}
                       loading={
                         componentLevelLoader && componentLevelLoader.loading
@@ -137,7 +137,7 @@ export default function Login() {
             </button>
           </div>
         
-        {/*loginwith*/}
+        {/*loginwith
         <div className="mt-6 flex justify-center relative">
           <div className="text-gray-600 uppercase px-3 bg-white z-10 relative">
             Or Login with
@@ -153,7 +153,7 @@ export default function Login() {
           >
             Google
           </Link>
-        </div>
+        </div>*/}
         <p className="mt-4 text-gray-600 text-center">
           Don't have an account?
           <Link href="/register" className="text-orange-400">
