@@ -5,8 +5,6 @@ A website that shows all the availaible products and their Description in Shiva 
 - [x] Add Authorisation details
 - [x] Add Products page
 - [x] Add Categories
-- [ ] Add contact us
+- [x] Add contact us
 - [x] Add cart
-- [ ] Add checkout
-- [x] Add billing
-- [ ] Add option to save favourites
+- [x] Add checkout

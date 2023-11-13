@@ -1,7 +1,8 @@
 
 import CommonListing from "@/components/CommonListing";
 import { getAllAdminProducts } from "@/services/product";
-
+import { productBysubCategory } from "@/services/product";
+ 
 import Link from "next/link";
 
 export default async function Home() {
@@ -9,8 +10,11 @@ export default async function Home() {
 
   const getAllProducts = await getAllAdminProducts();
 
-  const firstEightProducts = getAllProducts?.data.slice(0, 8);
-
+  const firstEightProducts = getAllProducts?.data.slice(1, 5);
+  
+  const getp = await productBysubCategory("necklace");
+  const s1 = getp?.data.slice(0,4);
+  
   
 
   
@@ -20,17 +24,11 @@ export default async function Home() {
         {/*banner*/}
     <div
       className="bg-cover bg-no-repeat bg-center py-36"
-      style={{ backgroundImage: 'url("images/logo.jpg")' }}
+      style={{ backgroundImage: 'url("images/banner.jpg")' }}
     >
-      <div className="container">
-        <h1 className="text-6xl text-white font-medium mb-4">
-          This banner is for <br /> only test purposes
-        </h1>
-        <p className="text-white">
-          Rome wasn't build in a day, so keep workind hard daily. <br />
-          its a marathon.
-        </p>
-        <div className="mt-12">
+      <div className="container pt-52">
+        
+        <div className="mt-14 pt-2">
           <Link
             href="/product/listing/all-products"
             className="bg-orange-400 border border-orange-400 text-white px-8 py-3 font-medium rounded-md hover:bg-transparent hover:text-orange-400 transition"
@@ -119,12 +117,14 @@ export default async function Home() {
     {/*categories end*/}
     
     {/*prodcuts*/}
-    <div className="container pb-16">
-      <h2 className="text-2xl font-medium text-geay-800 uppercase mb-6">
+    <div className="container pb-8">
+      <h2 className="text-2xl font-medium text-gray-800 uppercase mb-6">
         NEW PRODUCTS
       </h2>
       
       <CommonListing data={firstEightProducts} />
+      <CommonListing data={s1} />
+      
     </div>
     {/*prodcuts end*/}
     </div>

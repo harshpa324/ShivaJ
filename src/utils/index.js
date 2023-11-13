@@ -170,7 +170,14 @@ export const navOptions = [
           id: "earring",
           label: "Earrings"
         },
-        
+        {
+          id: "bangles",
+          label: "Bangles"
+        },
+        {
+          id: "necklace",
+          label: "Necklace"
+        },
       ],
     },
     /*{
