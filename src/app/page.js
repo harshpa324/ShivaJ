@@ -39,7 +39,7 @@ export default async function Home() {
           backgroundImage: 'url("images/banner.jpg")', // Default image for larger screens
         }}
       >
-        <div className="container pt-32">
+        <div className="container pt-64">
           <div className="mt-14 pt-2">
             <Link
               href="/product/listing/all-products"
