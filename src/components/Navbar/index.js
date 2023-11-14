@@ -64,7 +64,7 @@ export default function Navbar() {
   const pathName = usePathname();
   const router = useRouter();
 
-  
+
 
   useEffect(() => {
     if (
@@ -79,9 +79,9 @@ export default function Navbar() {
     setUser(null);
     Cookies.remove("token");
     localStorage.clear();
-    
+
   }
- 
+
   const isAdminView = pathName.includes("admin-view");
   const [loading, setLoading] = useState(true);
 
@@ -93,6 +93,10 @@ export default function Navbar() {
     checkAuthentication();
   }, [user]);
 
+  const handleButtonClick = () => {
+    
+    setShowNavModal((prevState) => !prevState);
+  }
   return (
     <>
       <meta charSet="UTF-8" />
@@ -115,8 +119,8 @@ export default function Navbar() {
             <img src="images/logo.jpg" className="w-24" alt="SHIVA JWELLERS" />
           </div>
           <NavItems router={router} isAdminView={isAdminView} />
-          
-          {loading? null :isAuthUser && !isAdminView ? (
+
+          {loading ? null : isAuthUser && !isAdminView ? (
             <Fragment>
               <div className="flex items-center justify-between space-x-4">
                 {/*<Link
@@ -130,7 +134,7 @@ export default function Navbar() {
                   {/* <span className="absolute right-0 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-pink-400 text-white text-xs ">
                     
                   </span> */}
-                
+
                 <Link
                   href="/cart"
                   className="text-center text-red-700 hover:text-pink-400 transition relative"
@@ -159,52 +163,52 @@ export default function Navbar() {
 
 
           {user?.role === "admin" ? (
-              isAdminView ? (
-                <button
-                className={
-                  "mt-1.5 inline-block text-red-700 px-5 py-3 hover:text-pink-400 transition font-medium upprcase tracking-wide"
-                }
-                  onClick={() => router.push("/")}
-                >
-                  Client View {user.email}
-                </button>
-              ) : (
-                <button
-                  onClick={() => router.push("/admin-view")}
-                className={
-                  "mt-1.5 inline-block text-red-700 px-5 py-3 hover:text-pink-400 transition font-medium upprcase tracking-wide"
-                }
-                >
-                  Admin View
-                </button>
-              )
-            ) : null}
-            {isAuthUser ? (
+            isAdminView ? (
               <button
-                onClick={handleLogout}
                 className={
-                "text-red-700 hover:text-pink-400 transition"
-              }
+                  "mt-1.5 inline-block text-red-700 px-5 py-3 hover:text-pink-400 transition font-medium upprcase tracking-wide"
+                }
+                onClick={() => router.push("/")}
               >
-                Logout
+                Client View {user.email}
               </button>
             ) : (
               <button
-                onClick={() => router.push("/login")}
+                onClick={() => router.push("/admin-view")}
                 className={
+                  "mt-1.5 inline-block text-red-700 px-5 py-3 hover:text-pink-400 transition font-medium upprcase tracking-wide"
+                }
+              >
+                Admin View
+              </button>
+            )
+          ) : null}
+          {isAuthUser ? (
+            <button
+              onClick={handleLogout}
+              className={
                 "text-red-700 hover:text-pink-400 transition"
               }
-              >
-                Login/Register
-              </button>
-            )}
+            >
+              Logout
+            </button>
+          ) : (
+            <button
+              onClick={() => router.push("/login")}
+              className={
+                "text-red-700 hover:text-pink-400 transition"
+              }
+            >
+              Login/Register
+            </button>
+          )}
           <button
             data-collapse-toggle="navbar-sticky"
             type="button"
             className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-red-700 dark:focus:ring-gray-600"
             aria-controls="navbar-sticky"
-            aria-expanded="false"
-            onClick={() => setShowNavModal(true)}
+            aria-expanded={showNavModal ? 'true' : 'false'}
+            onClick={handleButtonClick}
           >
             <span className="sr-only">Open main menu</span>
             <svg
