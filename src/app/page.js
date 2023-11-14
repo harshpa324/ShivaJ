@@ -19,11 +19,11 @@ export default async function Home() {
           backgroundImage: 'url("images/banner-mobile.jpg")', // Mobile-specific image
         }}
       >
-        <div className="container pt-32">
-          <div className="mt-14 pt-2">
+        <div className="container pt-96">
+          <div className="mt-12 pt-2">
             <Link
               href="/product/listing/all-products"
-              className="bg-orange-400 border border-orange-400 text-white px-8 py-3 font-medium rounded-md hover:bg-transparent hover:text-orange-400 transition"
+              className="bg-orange-400 border border-orange-400 text-white px-2 py-2 font-medium rounded-md hover:bg-transparent hover:text-orange-400 transition"
             >
               View Products
             </Link>
@@ -40,7 +40,7 @@ export default async function Home() {
         }}
       >
         <div className="container pt-64">
-          <div className="mt-14 pt-2">
+          <div className="mt-14 pt-12">
             <Link
               href="/product/listing/all-products"
               className="bg-orange-400 border border-orange-400 text-white px-8 py-3 font-medium rounded-md hover:bg-transparent hover:text-orange-400 transition"
