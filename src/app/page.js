@@ -14,8 +14,10 @@ export default async function Home() {
     <div>
       {/* banner */}
       <div
-        className="bg-cover bg-no-repeat bg-center py-20 md:py-36"
-        style={{ backgroundImage: 'url("images/banner.jpg")' }}
+        className="bg-cover bg-no-repeat bg-center py-20 md:py-36 md:hidden"
+        style={{
+          backgroundImage: 'url("images/banner-mobile.jpg")', // Mobile-specific image
+        }}
       >
         <div className="container pt-32">
           <div className="mt-14 pt-2">
@@ -28,7 +30,28 @@ export default async function Home() {
           </div>
         </div>
       </div>
-      {/* banner */}
+      {/* banner for mobile devices */}
+
+      {/* Default banner for larger screens */}
+      <div
+        className="bg-cover bg-no-repeat bg-center py-20 md:py-36 md:block hidden"
+        style={{
+          backgroundImage: 'url("images/banner.jpg")', // Default image for larger screens
+        }}
+      >
+        <div className="container pt-32">
+          <div className="mt-14 pt-2">
+            <Link
+              href="/product/listing/all-products"
+              className="bg-orange-400 border border-orange-400 text-white px-8 py-3 font-medium rounded-md hover:bg-transparent hover:text-orange-400 transition"
+            >
+              View Products
+            </Link>
+          </div>
+        </div>
+      </div>
+      {/* Default banner for larger screens */}
+
       
       {/* categories */}
       <div className="container py-8 md:py-16">
@@ -37,16 +60,17 @@ export default async function Home() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {/* single category (repeat for each category) */}
-          <div className="relative rounded-sm overflow-hidden group">
-            <img src="images/gold.jpg" alt="Cat1" className="w-full" />
-            <Link
-              href="/product/listing/gold"
-              className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-xl text-white font-roboto font-medium group-hover:bg-opacity-60 transition"
-            >
-              Gold
-            </Link>
-          </div>
-          {/* single category end */}
+          {["gold", "silver", "diamond", "ring", "earring", "all-jewellery"].map((category, index) => (
+            <div key={index} className="relative rounded-sm overflow-hidden group">
+              <img src={`images/${category}.jpg`} alt={`Cat${index + 1}`} className="w-full" />
+              <Link
+                href={`/product/listing/${category}`}
+                className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-xl text-white font-roboto font-medium group-hover:bg-opacity-60 transition"
+              >
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
       {/* categories end */}
@@ -69,7 +93,7 @@ export default async function Home() {
             <img
               src="images\Bureau_of_Indian_Standards_Logo.png"
               alt="Purity"
-              className="w-12 h-12 object-cover"
+              className="w-16 h-12 object-cover"
             />
             <div>
               <h4 className="font-medium capitalize text-lg">Hallmark Jewellery</h4>
@@ -79,6 +103,22 @@ export default async function Home() {
             </div>
           </div>
           {/* single feature end */}
+
+          {/* additional feature (repeat for each additional feature) */}
+          <div className="border border-orange-400 rounded-sm px-3 py-6 flex justify-center items-center gap-5">
+            <img
+              src="images/customer.jpg"
+              alt="Purity"
+              className="w-12 h-12 object-cover"
+            />
+            <div>
+              <h4 className="font-medium capitalize text-lg">Best Customer Service</h4>
+              <p className="text-gray-500 text-sm">
+                Your comfort and satisfaction are our top priority. We are committed to answering all your problems and concerns anytime.
+              </p>
+            </div>
+          </div>
+          {/* additional feature end */}
         </div>
       </div>
       {/* features end */}
