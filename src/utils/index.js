@@ -15,9 +15,9 @@ export const navOptions = [
       path: "/product/listing/gold",
     },
     {
-      id: "listingsilver",
-      label: "Silver",
-      path: "/product/listing/silver",
+      id: "listingnecklace",
+      label: "Necklace",
+      path: "/product/listing/necklace",
     },
     {
       id: "listingdiamonds",
