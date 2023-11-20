@@ -83,10 +83,10 @@ export default function Register() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl uppercase font-medium mb-1">Create an account</h2>
+        <h2 className="text-2xl uppercase font-medium mb-1">{isRegistered ? "Registration Successfull!!!!" : "Create an account"}</h2>
         <h1 className="text-gray-600 ml-3 cursor-pointer font-bold"></h1>
         <p className="text-gray-600 mb-6 text-sm">
-          {isRegistered ? "Registration Successfull!!!!" : "Register if you don't have an account."}
+          {isRegistered ? "Click below to go to login page." : "Register if you don't have an account."}
         </p>
         {isRegistered ? (
           <button
