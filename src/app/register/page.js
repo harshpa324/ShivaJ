@@ -24,7 +24,7 @@ const handleRegistrationAndLogin = async () => {
   setError((e) => ({ ...e, password: null }));
   if (isValidEmailAddress) {
     try {
-      // Register the user and, if successful, log them in
+      
       await app.emailPasswordAuth.registerUser(email, password);
       return await handleLogin();
     } catch (err) {
@@ -77,7 +77,7 @@ export default function Register() {
   
 
   useEffect(() => {
-    if (isAuthUser) router.back();
+    if (isAuthUser) router.push("/");
   }, [isAuthUser]);
 
   return (
