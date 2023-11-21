@@ -77,7 +77,7 @@ export default function Register() {
   
 
   useEffect(() => {
-    if (isAuthUser) router.push("/");
+    if (isAuthUser) router.back();
   }, [isAuthUser]);
 
   return (
