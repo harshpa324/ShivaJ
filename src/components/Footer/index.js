@@ -29,7 +29,7 @@ export default function Footer() {
                 </h3>
                 <div className="mt-4 space-y-4">
                   <a
-                    href="mailto:hp7050287@gmail.com"
+                    href="mailto:contactHp311@gmail.com"
                     className="text-gray-400 hover:text-gray-500 block"
                   >
                     <p>
