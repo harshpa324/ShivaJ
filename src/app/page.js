@@ -1,5 +1,4 @@
 import CommonListing from "@/components/CommonListing";
-import { getAllAdminProducts } from "@/services/product";
 import { productBysubCategory } from "@/services/product";
 import Link from "next/link";
 
