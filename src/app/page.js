@@ -4,8 +4,7 @@ import { productBysubCategory } from "@/services/product";
 import Link from "next/link";
 
 export default async function Home() {
-  const getAllProducts = await getAllAdminProducts();
-  const firstEightProducts = getAllProducts?.data.slice(1, 5);
+ 
 
   const getp = await productBysubCategory("necklace");
   const s1 = getp?.data.slice(0, 4);
@@ -80,7 +79,7 @@ export default async function Home() {
         <h2 className="text-2xl font-medium text-gray-800 uppercase mb-6">
           NEW PRODUCTS
         </h2>
-        <CommonListing data={firstEightProducts} />
+        
         <CommonListing data={s1} />
       </div>
       {/* products end */}
