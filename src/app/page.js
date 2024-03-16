@@ -1,12 +1,7 @@
-import CommonListing from "@/components/CommonListing";
-import { productBysubCategory } from "@/services/product";
 import Link from "next/link";
 
 export default async function Home() {
- 
 
-  const getp = await productBysubCategory("necklace");
-  const s1 = getp?.data.slice(0, 2);
 
   return (
     <div>
@@ -74,13 +69,6 @@ export default async function Home() {
       {/* categories end */}
       
       {/* products */}
-      <div className="container pb-8">
-        <h2 className="text-2xl font-medium text-gray-800 uppercase mb-6">
-          NEW PRODUCTS
-        </h2>
-        
-        <CommonListing data={s1} />
-      </div>
       {/* products end */}
       
       {/* features */}
