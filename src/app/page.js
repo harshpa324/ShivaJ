@@ -6,7 +6,7 @@ export default async function Home() {
  
 
   const getp = await productBysubCategory("necklace");
-  const s1 = getp?.data.slice(0, 4);
+  const s1 = getp?.data.slice(0, 2);
 
   return (
     <div>
